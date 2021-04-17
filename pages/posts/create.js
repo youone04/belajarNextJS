@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Cookies from 'js-cookie';
 import Router from 'next/router'
 import { authPage } from '../middleware/authorization'
 
