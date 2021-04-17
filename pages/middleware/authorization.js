@@ -13,3 +13,19 @@ export function unauthPage(ctx){
     
   })
 }
+
+export function authPage(ctx){
+    return new Promise((resolve , reject) => {
+      const allCookie = cookies(ctx)
+      if(!allCookie.token){
+          // 302 redirect
+          return ctx.res.writeHead(302, {
+              location:'/auth/login'
+          }).end();
+      }
+      resolve({
+          token : allCookie.token
+      });
+      
+    })
+  }

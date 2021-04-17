@@ -1,4 +1,12 @@
 import { useState } from 'react';
+import { unauthPage } from '../middleware/authorization'
+
+export async function getServerSideProps(ctx){
+    await unauthPage(ctx)
+    return {
+        props:{}
+    }
+}
 
 const Register = () => {
     const [fileds , setFileds] = useState({
