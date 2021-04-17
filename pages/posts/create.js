@@ -6,14 +6,20 @@ import { authPage } from '../middleware/authorization'
 export async function getServerSideProps(ctx){
     // authoriation
     const {token} = await authPage(ctx);
+
+    return {
+        props: {
+            token
+        }
+    }
 }
 
 
-export default function PostCreate(){
+export default function PostCreate(props){
     const[fileds , setFields] = useState({
         title: '',
         content:''
-    })
+    });
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -23,10 +29,10 @@ export default function PostCreate(){
            body: JSON.stringify(fileds),
            headers: {
                'Content-Type': 'application/json',
-               'Authorization': 'Bearer ' + token
+               'Authorization': 'Bearer ' + props.token
            }
        })
-       const dataResult = await dataSend.json();
+    const dataResult = await dataSend.json();
        console.log(dataResult);
     }
 
