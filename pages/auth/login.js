@@ -1,10 +1,22 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import Router from 'next/router';
+import Cookies from 'js-cookie';
+// import cookies from 'next-cookies'
+import { unauthPage } from '../middleware/authorization'
+
+export async function getServerSideProps(ctx){
+    await unauthPage(ctx)
+    return {
+        props:{}
+    }
+}
 
 const Login = () => {
     const[fileds , setFileds] = useState({
         email: '',
         password: ''
-    })
+    });
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const login  = await fetch('/api/auth/login', {
@@ -16,12 +28,16 @@ const Login = () => {
         });
         if(!login.ok) return;
        const loginRes = await login.json();
-       console.log(loginRes)
-       if(loginRes){
-        localStorage.setItem('dataLogin' , JSON.stringify(loginRes));
-       }
+      console.log(loginRes)
+      if(loginRes){
+        Cookies.set('token' ,loginRes.token);
+        Router.push('/posts');
+
+
+      }
 
     }
+
     const hanldeChange = (e) => {
         const name = e.target.getAttribute('name');
         setFileds({
