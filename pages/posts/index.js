@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { authPage } from '../middleware/authorization';
 import Router from 'next/router';
+import Nav from '../../components/nav';
 
 export async function getServerSideProps(ctx){
     // authoriation
@@ -51,7 +52,8 @@ const PostIndex = (props) => {
      Router.push(`/edit/${id}`);
   }
     return(
-        <div>
+        <>
+            <Nav/>
             <h1 style={{textAlign:'center'}}>Page Post</h1>
             {
                 tmpData.map((data , key) => (
@@ -68,7 +70,7 @@ const PostIndex = (props) => {
                         </div>
                 ))
             }
-        </div>
+        </>
     )
 }
 export default PostIndex;

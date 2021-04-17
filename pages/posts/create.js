@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Router from 'next/router'
 import { authPage } from '../middleware/authorization'
+import Nav from '../../components/nav';
 
 export async function getServerSideProps(ctx){
     // authoriation
@@ -51,15 +52,16 @@ export default function PostCreate(props){
     }
 
     return(
-        <div>
+        <>
+            <Nav/>
             <h1>Crate Posts</h1>
             <form onSubmit={handleSubmit.bind(this)}>
                 <input name="title" type="text" placeholder="Title" onChange={handleChange.bind(this)} /> <br/>
-                <textarea name="content" placeholder="Content" value={fileds.content} onChange={handleChange.bind(this)} > </textarea> <br/>
+                <textarea name="content" placeholder="Content" defaultValue="" onChange={handleChange.bind(this)} /> <br/>
                 <button type="submit" >
                     Save
                 </button>
             </form>
-        </div>
+        </>
     )   
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Router from 'next/router'
 import { authPage } from '../middleware/authorization'
+import Nav from '../../components/nav';
 
 export async function getServerSideProps(ctx){
     // authoriation
@@ -63,7 +64,8 @@ export default function PostEdit(props){
     }
 
     return(
-        <div>
+        <>
+            <Nav/>
             <h1>Edit Posts</h1>
             <form onSubmit={handleSubmit.bind(this)}>
                 <input name="title" type="text" placeholder="Title" onChange={handleChange.bind(this)} defaultValue={data.title} /> <br/>
@@ -72,6 +74,6 @@ export default function PostEdit(props){
                     Save
                 </button>
             </form>
-        </div>
+        </>
     )   
 }
