@@ -5,8 +5,11 @@ import Router from 'next/router';
 export default function Nav(){
     function handleLogout(e){
         e.preventDefault();    
-        Cookie.remove('token');
-        Router.replace('/auth/login');
+        const ask = confirm('Apakah ingin keluar?');
+        if(ask){
+            Cookie.remove('token');
+            Router.replace('/auth/login');
+        }
     }
     return(
         <div style={{width:'100%',height: 50,backgroundColor:'blue',color:'white',position:'fixed'}}>

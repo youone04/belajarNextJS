@@ -16,7 +16,7 @@ export default async function hanlder(req , res) {
    const token  = jwt.sign({
        id: cekUser.id,
        email: cekUser.email
-   },'123',{
+   },process.env.JWT_TOKEN,{
        expiresIn:'1d'
    })
 
