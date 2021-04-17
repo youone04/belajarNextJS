@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { unauthPage } from '../middleware/authorization'
+import { unauthPage } from '../middleware/authorization';
+import Router from 'next/router';
 
 export async function getServerSideProps(ctx){
     await unauthPage(ctx)
@@ -27,6 +28,9 @@ const Register = () => {
         if(!register.ok) return;
         const registerRe = await register.json();
         console.log(registerRe)
+        if(registerRe){
+            Router.push('/posts');
+        }
         
        
     }
