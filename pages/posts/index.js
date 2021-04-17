@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { authPage } from '../middleware/authorization'
 
 export async function getServerSideProps(ctx){
@@ -21,7 +22,8 @@ export async function getServerSideProps(ctx){
     }
 }
 const PostIndex = (props) => {
-
+    const[tmpData , setTmpData] = useState(props.posts);
+   
     async function handleDelete(id, e){
         e.preventDefault();
        const ask = confirm('Apakah data akan dihapus?');
@@ -34,7 +36,13 @@ const PostIndex = (props) => {
                }
            });
            const dataResult = await deleteData.json();
-           console.log(dataResult);
+           if(dataResult){
+            const deleteFilter = tmpData.filter(data => {
+                return data.id !== id && data;
+            })
+            setTmpData(deleteFilter)
+           }
+
        }
 
 
@@ -43,7 +51,7 @@ const PostIndex = (props) => {
         <div>
             <h1 style={{textAlign:'center'}}>Page Post</h1>
             {
-                props.posts.map((data , key) => (
+                tmpData.map((data , key) => (
                         <div key={key}>
                             <ul>
                                 <li>Judul : {data.title}</li>
