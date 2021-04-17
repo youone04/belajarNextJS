@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
-import { authPage } from '../middleware/authorization'
+import { authPage } from '../middleware/authorization';
+import Router from 'next/router';
 
 export async function getServerSideProps(ctx){
     // authoriation
@@ -44,9 +45,11 @@ const PostIndex = (props) => {
            }
 
        }
-
-
     }
+
+  function handleRedirect(id){
+     Router.push(`/edit/${id}`);
+  }
     return(
         <div>
             <h1 style={{textAlign:'center'}}>Page Post</h1>
@@ -58,7 +61,7 @@ const PostIndex = (props) => {
                                 <li>content : {data.content}</li>
                             </ul>
                             <div>
-                                <button>edit</button>
+                                <button onClick={handleRedirect.bind(this, data.id)}>edit</button>
                                 <button style={{marginLeft: 5}} onClick={handleDelete.bind(this, data.id)}>delete</button>
                             </div>
                             <hr/>
