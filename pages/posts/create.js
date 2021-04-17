@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
-
+import Router from 'next/router'
 import { authPage } from '../middleware/authorization'
 
 export async function getServerSideProps(ctx){
@@ -23,7 +23,6 @@ export default function PostCreate(props){
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        const token = Cookies.get('token');
        const dataSend = await fetch('/api/posts/create',{
            method: 'POST',
            body: JSON.stringify(fileds),
@@ -32,9 +31,15 @@ export default function PostCreate(props){
                'Authorization': 'Bearer ' + props.token
            }
        })
-    const dataResult = await dataSend.json();
+        const dataResult = await dataSend.json();
        console.log(dataResult);
+       if(!dataSend.ok) return;
+        if(dataResult){
+            Router.push('/posts');
+        }
+      
     }
+
 
     const handleChange = (e) => {
         const name = e.target.getAttribute('name');
