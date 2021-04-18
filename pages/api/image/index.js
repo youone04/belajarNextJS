@@ -3,7 +3,7 @@ import multer from 'multer';
 import db from '../../../libs/db';
 
 const upload = multer({
-  storage: multer.diskStorage({
+    storage: multer.diskStorage({
     destination: './public/uploads',
     filename: (req, file, cb) => cb(null, Date.now() + "-" +
    file.originalname),
@@ -21,11 +21,14 @@ const hanlder = nextConnect({
 });
 
 hanlder.use(upload.array('theFiles'));
+
 hanlder.post(async (req, res) => {
-  console.log(req.files[0].filename);
+  const result = JSON.parse(JSON.stringify(req.body))
+  // console.log('data body => ',result.data);
+  // console.log('data file => ', req.files[0].filename);
   await db('tbl_img').insert({
     url_img:req.files[0].filename,
-    descripsi: 'TEST'
+    descripsi: result.data
 });
   res.status(200).json({data: 'success' });
 });

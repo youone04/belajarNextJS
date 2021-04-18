@@ -17,6 +17,8 @@ export default function Nav(){
             <Link href="/posts">Home</Link>
             &nbsp;| &nbsp;
             <Link href="/posts/create">Create</Link>
+            &nbsp;| &nbsp;
+            <Link href="/imageupload">Create Image</Link>
              &nbsp;| &nbsp;
              <a href="#!" onClick={handleLogout.bind(this)}>Log Out</a>
             </div>

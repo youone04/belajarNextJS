@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Router from 'next/router'
-import { authPage } from '../middleware/authorization'
+import { authPage } from '../middleware/authorization';
 import Nav from '../../components/nav';
 
 export async function getServerSideProps(ctx){
